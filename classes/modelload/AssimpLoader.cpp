@@ -8,6 +8,14 @@ AssimpLoader::AssimpLoader()
 
 bool AssimpLoader::Load(const std::string&& szFileName, ID3D11Device* pDevice)
 {
+	if (!m_Meshes.empty())
+	{
+		for (auto* it : m_Meshes)
+		{
+			delete it;
+		}
+		m_Meshes.clear();
+	}
 
 	const aiScene* pAIScene = aiImportFile(szFileName.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
 
@@ -18,7 +26,6 @@ bool AssimpLoader::Load(const std::string&& szFileName, ID3D11Device* pDevice)
 	}
 
 	const unsigned int iNumMeshes = pAIScene->mNumMeshes;
-	m_Meshes.clear();
 	m_Meshes.reserve(iNumMeshes);
 	for (int meshIndex = 0; meshIndex < iNumMeshes; meshIndex++)
 	{
