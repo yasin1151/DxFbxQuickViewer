@@ -6,6 +6,10 @@
 #include <Windows.h>
 #include <log/easylogging++.h>
 #include <wrl/client.h>
+#include <imgui/imgui.h>
+
+#include "imgui/imgui_impl_dx11.h"
+#include "imgui/imgui_impl_win32.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dx11d.lib")
@@ -41,6 +45,7 @@ DeviceData g_DeviceData;
 
 HRESULT InitWindow(HINSTANCE hInstance, int nCmdShow);
 HRESULT InitDevice(HWND hWnd, HINSTANCE hInstance);
+HRESULT InitImgUI(HWND hWnd, ID3D11Device* pDeivce, ID3D11DeviceContext* pDeviceContext);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 void Render();
 
@@ -80,6 +85,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
         return 0;
     }
 
+	if (FAILED(InitImgUI(g_DeviceData.hWnd, g_DeviceData.pDevice.Get(), g_DeviceData.pDeviceContext.Get())))
+	{
+        LOG(ERROR) << "InitImgUI Failed :" << GetLastError();
+        return 0;
+	}
+
     LOG(INFO) << "Init Success!!! \n" ;
 	
     MSG msg = { nullptr };
@@ -98,9 +109,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
     return static_cast<int>(msg.wParam);
 }
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
+        return true;
+
+	
     switch (message)
     {
     case WM_DESTROY:
@@ -109,7 +125,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
-    return 0;
+    return false;
 }
 
 HRESULT InitWindow(HINSTANCE hInstance, int nCmdShow)
@@ -240,15 +256,35 @@ HRESULT InitDevice(HWND hWnd, HINSTANCE hInstance)
 	
 }
 
+HRESULT InitImgUI(HWND hWnd, ID3D11Device* pDeivce, ID3D11DeviceContext* pDeviceContext)
+{
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    ImGui::StyleColorsDark();
+    ImGui_ImplWin32_Init(hWnd);
+    ImGui_ImplDX11_Init(pDeivce, pDeviceContext);
+    return S_OK;
+}
+
 
 void Render()
 {
     float ClearColor[4] = { 0.0f, 0.125f, 0.3f, 1.0f };
-	
+    ImGui_ImplDX11_NewFrame();
+    ImGui_ImplWin32_NewFrame();
+    ImGui::NewFrame();
+
+    ImGui::Begin("FBXViewer");
+    ImGui::Text("Test");
+    ImGui::End();
+    ImGui::Render();
+
     g_DeviceData.pDeviceContext->ClearRenderTargetView(g_DeviceData.pRenderTargetView.Get(), ClearColor);
     g_DeviceData.pDeviceContext->ClearDepthStencilView(g_DeviceData.pDepthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 
 
+    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
     g_DeviceData.pSwapChain->Present(0, 0);
 
 }

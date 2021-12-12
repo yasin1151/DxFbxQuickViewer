@@ -144,10 +144,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="classes\imgui\imgui.cpp" />
+    <ClCompile Include="classes\imgui\imgui_draw.cpp" />
+    <ClCompile Include="classes\imgui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="classes\imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="classes\imgui\imgui_tables.cpp" />
+    <ClCompile Include="classes\imgui\imgui_widgets.cpp" />
     <ClCompile Include="classes\log\easylogging++.cc" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="classes\imgui\imconfig.h" />
+    <ClInclude Include="classes\imgui\imgui.h" />
+    <ClInclude Include="classes\imgui\imgui_impl_dx11.h" />
+    <ClInclude Include="classes\imgui\imgui_impl_win32.h" />
+    <ClInclude Include="classes\imgui\imgui_internal.h" />
+    <ClInclude Include="classes\imgui\imstb_rectpack.h" />
+    <ClInclude Include="classes\imgui\imstb_textedit.h" />
+    <ClInclude Include="classes\imgui\imstb_truetype.h" />
     <ClInclude Include="classes\log\easylogging++.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
