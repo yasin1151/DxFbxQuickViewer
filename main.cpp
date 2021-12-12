@@ -8,20 +8,22 @@
 #include <wrl/client.h>
 #include <imgui/imgui.h>
 
-#include "imgui/imgui_impl_dx11.h"
-#include "imgui/imgui_impl_win32.h"
+#include <imgui/imgui_impl_dx11.h>
+#include <imgui/imgui_impl_win32.h>
+
+#include "modelload/AssimpLoader.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dx11d.lib")
-
+#pragma comment(lib, "assimp-vc142-mtd.lib")
 
 using namespace std;
 using namespace Microsoft::WRL;
 
 // 标题名字，宽高
 const wchar_t* TITLE_NAME = L"FBXQuickViewer";
-const unsigned int WINDOW_WIDTH = 800;
-const unsigned int WINDOW_HEIGHT = 600;
+constexpr unsigned int WINDOW_WIDTH = 800;
+constexpr unsigned int WINDOW_HEIGHT = 600;
 
 
 // 初始化 easylogging
@@ -39,7 +41,6 @@ struct DeviceData
     ComPtr<ID3D11RenderTargetView> pRenderTargetView;
     ComPtr<ID3D11Texture2D> pDepthStencilTexture;
     ComPtr<ID3D11DepthStencilView> pDepthStencilView;
-	
 };
 DeviceData g_DeviceData;
 
@@ -92,6 +93,19 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	}
 
     LOG(INFO) << "Init Success!!! \n" ;
+
+	// 测试加载模型
+    AssimpLoader assimpLoader;
+    bool bSucc = assimpLoader.Load("assets/box.FBX", g_DeviceData.pDevice.Get());
+    if (bSucc)
+    {
+        LOG(INFO) << "Load box.FBX Succ, vertices :" << assimpLoader.GetMeshes()[0]->Vertices.size() << ", indices :" << assimpLoader.GetMeshes()[0]->Indices.size() << "。\n";
+    }
+    else
+    {
+        LOG(ERROR) << "Load box.FBX Failed\n";
+
+    }
 	
     MSG msg = { nullptr };
     while (WM_QUIT != msg.message)
@@ -109,6 +123,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
     return static_cast<int>(msg.wParam);
 }
+
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -253,7 +268,8 @@ HRESULT InitDevice(HWND hWnd, HINSTANCE hInstance)
     vp.TopLeftX = 0;
     vp.TopLeftY = 0;
     g_DeviceData.pDeviceContext->RSSetViewports(1, &vp);
-	
+
+    return hr;
 }
 
 HRESULT InitImgUI(HWND hWnd, ID3D11Device* pDeivce, ID3D11DeviceContext* pDeviceContext)
@@ -267,10 +283,9 @@ HRESULT InitImgUI(HWND hWnd, ID3D11Device* pDeivce, ID3D11DeviceContext* pDevice
     return S_OK;
 }
 
-
 void Render()
 {
-    float ClearColor[4] = { 0.0f, 0.125f, 0.3f, 1.0f };
+	constexpr float ClearColor[4] = { 0.0f, 0.125f, 0.3f, 1.0f };
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();

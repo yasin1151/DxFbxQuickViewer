@@ -13,11 +13,20 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="源文件\log">
+    <Filter Include="源文件\classes">
+      <UniqueIdentifier>{65eaf63a-a21f-4c59-8d56-a4d4b7299ec5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\classes\log">
       <UniqueIdentifier>{8eeaf417-c219-4cd7-aee6-02dd042a467c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\imgui">
+    <Filter Include="源文件\classes\imgui">
       <UniqueIdentifier>{c22a03c1-47ff-4b12-98db-fe2a32a4cba9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\assimp">
+      <UniqueIdentifier>{dd993583-3c0b-4c95-86e7-1680b9080c43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\classes\modelload">
+      <UniqueIdentifier>{b30bc0f6-3e8d-44b6-ade0-01372a378251}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -25,54 +34,72 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="classes\log\easylogging++.cc">
-      <Filter>源文件\log</Filter>
+      <Filter>源文件\classes\log</Filter>
     </ClCompile>
     <ClCompile Include="classes\imgui\imgui.cpp">
-      <Filter>源文件\imgui</Filter>
+      <Filter>源文件\classes\imgui</Filter>
     </ClCompile>
     <ClCompile Include="classes\imgui\imgui_draw.cpp">
-      <Filter>源文件\imgui</Filter>
+      <Filter>源文件\classes\imgui</Filter>
     </ClCompile>
     <ClCompile Include="classes\imgui\imgui_impl_dx11.cpp">
-      <Filter>源文件\imgui</Filter>
+      <Filter>源文件\classes\imgui</Filter>
     </ClCompile>
     <ClCompile Include="classes\imgui\imgui_impl_win32.cpp">
-      <Filter>源文件\imgui</Filter>
+      <Filter>源文件\classes\imgui</Filter>
     </ClCompile>
     <ClCompile Include="classes\imgui\imgui_tables.cpp">
-      <Filter>源文件\imgui</Filter>
+      <Filter>源文件\classes\imgui</Filter>
     </ClCompile>
     <ClCompile Include="classes\imgui\imgui_widgets.cpp">
-      <Filter>源文件\imgui</Filter>
+      <Filter>源文件\classes\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="classes\modelload\AssimpLoader.cpp">
+      <Filter>源文件\classes\modelload</Filter>
+    </ClCompile>
+    <ClCompile Include="classes\modelload\AssimpMesh.cpp">
+      <Filter>源文件\classes\modelload</Filter>
+    </ClCompile>
+    <ClCompile Include="classes\modelload\Vec3.cpp">
+      <Filter>源文件\classes\modelload</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="classes\log\easylogging++.h">
-      <Filter>源文件\log</Filter>
+      <Filter>源文件\classes\log</Filter>
     </ClInclude>
     <ClInclude Include="classes\imgui\imconfig.h">
-      <Filter>源文件\imgui</Filter>
+      <Filter>源文件\classes\imgui</Filter>
     </ClInclude>
     <ClInclude Include="classes\imgui\imgui.h">
-      <Filter>源文件\imgui</Filter>
+      <Filter>源文件\classes\imgui</Filter>
     </ClInclude>
     <ClInclude Include="classes\imgui\imgui_impl_dx11.h">
-      <Filter>源文件\imgui</Filter>
+      <Filter>源文件\classes\imgui</Filter>
     </ClInclude>
     <ClInclude Include="classes\imgui\imgui_impl_win32.h">
-      <Filter>源文件\imgui</Filter>
+      <Filter>源文件\classes\imgui</Filter>
     </ClInclude>
     <ClInclude Include="classes\imgui\imgui_internal.h">
-      <Filter>源文件\imgui</Filter>
+      <Filter>源文件\classes\imgui</Filter>
     </ClInclude>
     <ClInclude Include="classes\imgui\imstb_rectpack.h">
-      <Filter>源文件\imgui</Filter>
+      <Filter>源文件\classes\imgui</Filter>
     </ClInclude>
     <ClInclude Include="classes\imgui\imstb_textedit.h">
-      <Filter>源文件\imgui</Filter>
+      <Filter>源文件\classes\imgui</Filter>
     </ClInclude>
     <ClInclude Include="classes\imgui\imstb_truetype.h">
-      <Filter>源文件\imgui</Filter>
+      <Filter>源文件\classes\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="classes\modelload\AssimpLoader.h">
+      <Filter>源文件\classes\modelload</Filter>
+    </ClInclude>
+    <ClInclude Include="classes\modelload\AssimpMesh.h">
+      <Filter>源文件\classes\modelload</Filter>
+    </ClInclude>
+    <ClInclude Include="classes\modelload\Vec3.h">
+      <Filter>源文件\classes\modelload</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
