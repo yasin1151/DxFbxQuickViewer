@@ -10,7 +10,7 @@ bool AssimpLoader::Load(const std::string&& szFileName, ID3D11Device* pDevice)
 {
 	if (!m_Meshes.empty())
 	{
-		for (auto* it : m_Meshes)
+		for (const auto* it : m_Meshes)
 		{
 			delete it;
 		}
@@ -37,12 +37,12 @@ bool AssimpLoader::Load(const std::string&& szFileName, ID3D11Device* pDevice)
 		oAssimpMesh->Vertices.reserve(pAIMesh->mNumVertices);
 		for (int vertIndex = 0; vertIndex < pAIMesh->mNumVertices; vertIndex++)
 		{
-			aiVector3D vert = std::move(pAIMesh->mVertices[vertIndex]);
-			aiVector3D normal = std::move(pAIMesh->mNormals[vertIndex]);
+			aiVector3D vert = pAIMesh->mVertices[vertIndex];
+			aiVector3D normal = pAIMesh->mNormals[vertIndex];
 
-			oAssimpMesh->Vertices.push_back({
-					Vec3(vert.x, vert.y, vert.z),
-					Vec3(normal.x, normal.y, normal.z)});
+			oAssimpMesh->Vertices.emplace_back(
+				Vec3(vert.x, vert.y, vert.z),
+					Vec3(normal.x, normal.y, normal.z));
 		}
 
 

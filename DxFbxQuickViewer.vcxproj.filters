@@ -5,10 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="头文件">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="资源文件">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -27,6 +23,9 @@
     </Filter>
     <Filter Include="源文件\classes\modelload">
       <UniqueIdentifier>{b30bc0f6-3e8d-44b6-ade0-01372a378251}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\shader">
+      <UniqueIdentifier>{5c774209-5518-4d04-8676-8d9da53359d2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +60,12 @@
       <Filter>源文件\classes\modelload</Filter>
     </ClCompile>
     <ClCompile Include="classes\modelload\Vec3.cpp">
+      <Filter>源文件\classes\modelload</Filter>
+    </ClCompile>
+    <ClCompile Include="classes\modelload\Sprite3D.cpp">
+      <Filter>源文件\classes\modelload</Filter>
+    </ClCompile>
+    <ClCompile Include="classes\modelload\Matrix.cpp">
       <Filter>源文件\classes\modelload</Filter>
     </ClCompile>
   </ItemGroup>
@@ -101,5 +106,19 @@
     <ClInclude Include="classes\modelload\Vec3.h">
       <Filter>源文件\classes\modelload</Filter>
     </ClInclude>
+    <ClInclude Include="classes\modelload\Sprite3D.h">
+      <Filter>源文件\classes\modelload</Filter>
+    </ClInclude>
+    <ClInclude Include="classes\modelload\Matrix.h">
+      <Filter>源文件\classes\modelload</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader\baseshader.vs">
+      <Filter>源文件\shader</Filter>
+    </None>
+    <None Include="shader\baseshader.ps">
+      <Filter>源文件\shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

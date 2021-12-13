@@ -1,6 +1,8 @@
 #pragma once
 
+#include <d3d11.h>
 #include <vector>
+#include <wrl/client.h>
 
 #include "Vec3.h"
 
@@ -32,6 +34,13 @@ public:
 	std::vector<AssimpVertex> Vertices;
 	std::vector<std::uint32_t> Indices;
 
+
+	Microsoft::WRL::ComPtr<ID3D11Buffer> VertexBuffer;
+	Microsoft::WRL::ComPtr<ID3D11Buffer> IndexBuffer;
+	std::uint32_t NumberOfIndices;
+
+
+	bool InitBuffer(ID3D11Device* pDevice);
 };
 
 

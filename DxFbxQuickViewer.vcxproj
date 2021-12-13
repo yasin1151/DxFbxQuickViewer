@@ -155,6 +155,8 @@
     <ClCompile Include="classes\log\easylogging++.cc" />
     <ClCompile Include="classes\modelload\AssimpLoader.cpp" />
     <ClCompile Include="classes\modelload\AssimpMesh.cpp" />
+    <ClCompile Include="classes\modelload\Matrix.cpp" />
+    <ClCompile Include="classes\modelload\Sprite3D.cpp" />
     <ClCompile Include="classes\modelload\Vec3.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -170,7 +172,13 @@
     <ClInclude Include="classes\log\easylogging++.h" />
     <ClInclude Include="classes\modelload\AssimpLoader.h" />
     <ClInclude Include="classes\modelload\AssimpMesh.h" />
+    <ClInclude Include="classes\modelload\Matrix.h" />
+    <ClInclude Include="classes\modelload\Sprite3D.h" />
     <ClInclude Include="classes\modelload\Vec3.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader\baseshader.ps" />
+    <None Include="shader\baseshader.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -12,6 +12,7 @@
 #include <imgui/imgui_impl_win32.h>
 
 #include "modelload/AssimpLoader.h"
+#include "modelload/Sprite3D.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dx11d.lib")
@@ -43,6 +44,7 @@ struct DeviceData
     ComPtr<ID3D11DepthStencilView> pDepthStencilView;
 };
 DeviceData g_DeviceData;
+Sprite3D g_Sprite3D;
 
 HRESULT InitWindow(HINSTANCE hInstance, int nCmdShow);
 HRESULT InitDevice(HWND hWnd, HINSTANCE hInstance);
@@ -95,11 +97,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
     LOG(INFO) << "Init Success!!! \n" ;
 
 	// ²âÊÔ¼ÓÔØÄ£ÐÍ
-    AssimpLoader assimpLoader;
-    bool bSucc = assimpLoader.Load("assets/box.FBX", g_DeviceData.pDevice.Get());
-    if (bSucc)
+
+    if (g_Sprite3D.InitWithFile("assets/box.FBX", g_DeviceData.pDevice.Get()))
     {
-        LOG(INFO) << "Load box.FBX Succ, vertices :" << assimpLoader.GetMeshes()[0]->Vertices.size() << ", indices :" << assimpLoader.GetMeshes()[0]->Indices.size() << "¡£\n";
+        LOG(INFO) << "Load box.FBX Succ, vertices :" << g_Sprite3D.GetAllMeshes()[0]->Vertices.size() << ", indices :" << g_Sprite3D.GetAllMeshes()[0]->Indices.size() << "¡£\n";
     }
     else
     {
@@ -298,6 +299,7 @@ void Render()
     g_DeviceData.pDeviceContext->ClearRenderTargetView(g_DeviceData.pRenderTargetView.Get(), ClearColor);
     g_DeviceData.pDeviceContext->ClearDepthStencilView(g_DeviceData.pDepthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 
+    g_Sprite3D.Draw(g_DeviceData.pDeviceContext.Get());
 
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
     g_DeviceData.pSwapChain->Present(0, 0);
