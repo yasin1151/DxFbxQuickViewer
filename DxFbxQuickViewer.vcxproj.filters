@@ -27,6 +27,9 @@
     <Filter Include="源文件\shader">
       <UniqueIdentifier>{5c774209-5518-4d04-8676-8d9da53359d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\classes\renderer">
+      <UniqueIdentifier>{8859d7e5-e206-473c-9d85-c1ad4195820e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -67,6 +70,9 @@
     </ClCompile>
     <ClCompile Include="classes\modelload\Matrix.cpp">
       <Filter>源文件\classes\modelload</Filter>
+    </ClCompile>
+    <ClCompile Include="classes\renderer\shader.cpp">
+      <Filter>源文件\classes\renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -112,12 +118,15 @@
     <ClInclude Include="classes\modelload\Matrix.h">
       <Filter>源文件\classes\modelload</Filter>
     </ClInclude>
+    <ClInclude Include="classes\renderer\shader.h">
+      <Filter>源文件\classes\renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shader\baseshader.vs">
+    <None Include="shader\baseshader_VS.hlsl">
       <Filter>源文件\shader</Filter>
     </None>
-    <None Include="shader\baseshader.ps">
+    <None Include="shader\baseshader_PS.hlsl">
       <Filter>源文件\shader</Filter>
     </None>
   </ItemGroup>

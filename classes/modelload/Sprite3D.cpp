@@ -4,8 +4,10 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <assimp/material.h>
+#include <xnamath.h>
 
 #include "Matrix.h"
+#include "renderer/shader.h"
 
 
 static const char* szVertShader = R"delimiter(
@@ -48,9 +50,9 @@ PixelIn main(VertexIn vin)
 
 struct MVP_MAT
 {
-	Matrix Model;
-	Matrix View;
-	Matrix Proj;
+	XMMATRIX Model;
+	XMMATRIX View;
+	XMMATRIX Proj;
 };
 
 
@@ -153,7 +155,16 @@ void Sprite3D::Draw(ID3D11DeviceContext* pDeviceContext)
 			return;
 		}
 
-		MVP_MAT mvp = {};
+		auto worldMat = XMMatrixIdentity();
+		// Initialize the view matrix
+		XMVECTOR Eye = XMVectorSet(10.0f, 13.0f, 106.0f, 0.0f);
+		XMVECTOR At = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+		XMVECTOR Up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+		auto viewMat = XMMatrixLookAtLH(Eye, At, Up);
+		auto projectionMat = XMMatrixPerspectiveFovLH(XM_PIDIV4, 800 / (FLOAT)600, 0.01f, 100.0f);
+
+		MVP_MAT mvp = { worldMat , viewMat , projectionMat };
+
 		memcpy(vscb.pData, &mvp, sizeof(mvp));
 		pDeviceContext->Unmap(m_VertexBuffer.Get(), 0);
 
@@ -234,11 +245,12 @@ HRESULT Sprite3D::InitRenderer(ID3D11Device* pDevice)
 		return E_FAIL;
 	}
 
+
 	Microsoft::WRL::ComPtr<ID3DBlob> pVertBlob;
-	hr = D3DReadFileToBlob("./shader/baseshader.vs", &pVertBlob);
+	hr = Shader::CreateShaderFromFile(L"./shader/baseshader_VS.hlsl", "main", "vs_4_0", &pVertBlob);
 	if (FAILED(hr))
 	{
-		LOG(ERROR) << "Sprite3D::InitRenderer D3DReadFileToBlob Failed:" << hr;
+		LOG(ERROR) << "Sprite3D::InitRenderer pVertBlob D3DReadFileToBlob Failed:" << hr;
 		return E_FAIL;
 	}
 
@@ -249,15 +261,22 @@ HRESULT Sprite3D::InitRenderer(ID3D11Device* pDevice)
 		return E_FAIL;
 	}
 
-	hr = pDevice->CreateInputLayout(inputLayout, numElements, szVertShader, strlen(szVertShader), &m_InputLayout);
+	hr = pDevice->CreateInputLayout(inputLayout, numElements, pVertBlob->GetBufferPointer(), pVertBlob->GetBufferSize(), &m_InputLayout);
 	if (FAILED(hr))
 	{
 		LOG(ERROR) << "Sprite3D::InitRenderer CreateInputLayout Failed:" << hr;
 		return E_FAIL;
 	}
 
+	Microsoft::WRL::ComPtr<ID3DBlob> pPixelBlob;
+	hr = Shader::CreateShaderFromFile(L"./shader/baseshader_PS.hlsl", "main", "ps_4_0", &pPixelBlob);
+	if (FAILED(hr))
+	{
+		LOG(ERROR) << "Sprite3D::InitRenderer pPixelBlob D3DReadFileToBlob Failed:" << hr;
+		return E_FAIL;
+	}
 
-	hr = pDevice->CreatePixelShader(szPixelShader, strlen(szPixelShader) + 1, nullptr, &m_PixelShader);
+	hr = pDevice->CreatePixelShader(pPixelBlob->GetBufferPointer(), pPixelBlob->GetBufferSize(), nullptr, &m_PixelShader);
 	if (FAILED(hr))
 	{
 		LOG(ERROR) << "Sprite3D::InitRenderer CreatePixelShader Failed:" << hr << ", " << strlen(szPixelShader);
