@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="classes\Application.cpp" />
     <ClCompile Include="classes\imgui\imgui.cpp" />
     <ClCompile Include="classes\imgui\imgui_draw.cpp" />
     <ClCompile Include="classes\imgui\imgui_impl_dx11.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="classes\Application.h" />
     <ClInclude Include="classes\imgui\imconfig.h" />
     <ClInclude Include="classes\imgui\imgui.h" />
     <ClInclude Include="classes\imgui\imgui_impl_dx11.h" />
