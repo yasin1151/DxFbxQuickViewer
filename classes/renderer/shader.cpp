@@ -1,4 +1,4 @@
-#include "shader.h"
+#include "Shader.h"
 
 #include <d3dcompiler.h>
 

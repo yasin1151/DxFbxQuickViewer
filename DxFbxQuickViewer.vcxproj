@@ -158,7 +158,8 @@
     <ClCompile Include="classes\modelload\Matrix.cpp" />
     <ClCompile Include="classes\modelload\Sprite3D.cpp" />
     <ClCompile Include="classes\modelload\Vec3.cpp" />
-    <ClCompile Include="classes\renderer\shader.cpp" />
+    <ClCompile Include="classes\renderer\DeviceD3D.cpp" />
+    <ClCompile Include="classes\renderer\Shader.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -176,7 +177,8 @@
     <ClInclude Include="classes\modelload\Matrix.h" />
     <ClInclude Include="classes\modelload\Sprite3D.h" />
     <ClInclude Include="classes\modelload\Vec3.h" />
-    <ClInclude Include="classes\renderer\shader.h" />
+    <ClInclude Include="classes\renderer\DeviceD3D.h" />
+    <ClInclude Include="classes\renderer\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="shader\baseshader_PS.hlsl" />

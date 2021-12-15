@@ -71,7 +71,10 @@
     <ClCompile Include="classes\modelload\Matrix.cpp">
       <Filter>源文件\classes\modelload</Filter>
     </ClCompile>
-    <ClCompile Include="classes\renderer\shader.cpp">
+    <ClCompile Include="classes\renderer\Shader.cpp">
+      <Filter>源文件\classes\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="classes\renderer\DeviceD3D.cpp">
       <Filter>源文件\classes\renderer</Filter>
     </ClCompile>
   </ItemGroup>
@@ -118,7 +121,10 @@
     <ClInclude Include="classes\modelload\Matrix.h">
       <Filter>源文件\classes\modelload</Filter>
     </ClInclude>
-    <ClInclude Include="classes\renderer\shader.h">
+    <ClInclude Include="classes\renderer\Shader.h">
+      <Filter>源文件\classes\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="classes\renderer\DeviceD3D.h">
       <Filter>源文件\classes\renderer</Filter>
     </ClInclude>
   </ItemGroup>
