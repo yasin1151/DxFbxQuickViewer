@@ -10,6 +10,68 @@ constexpr unsigned int WINDOW_WIDTH = 800;
 constexpr unsigned int WINDOW_HEIGHT = 600;
 
 
+void Application::Render()
+{
+    ImGui_ImplDX11_NewFrame();
+    ImGui_ImplWin32_NewFrame();
+    ImGui::NewFrame();
+
+    ImGui::Begin("FBXViewer");
+    ImGui::Text("Test");
+    ImGui::End();
+    ImGui::Render();
+
+    DeviceD3D::GetInstance().Begin(0.0f, 0.125f, 0.3f, 1.0f);
+
+    m_Sprite3D.Draw(DeviceD3D::GetInstance().GetDeviceContext());
+
+    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+    DeviceD3D::GetInstance().Present();
+
+}
+
+bool Application::Init()
+{
+    HINSTANCE hInstance = GetModuleHandle(nullptr);
+
+    if (FAILED(this->InitWindow(hInstance, SW_SHOW)))
+    {
+        LOG(ERROR) << "InitWindow Failed :" << GetLastError();
+        return false;
+    }
+
+    if (FAILED(DeviceD3D::GetInstance().InitDevice(m_hWnd, hInstance)))
+    {
+        LOG(ERROR) << "InitDevice Failed :" << GetLastError();
+        return false;
+    }
+
+    if (FAILED(InitImgUI(m_hWnd, DeviceD3D::GetInstance().GetDevice(), DeviceD3D::GetInstance().GetDeviceContext())))
+    {
+        LOG(ERROR) << "InitImgUI Failed :" << GetLastError();
+        return false;
+    }
+
+
+    // 测试加载模型
+
+    if (m_Sprite3D.InitWithFile("assets/box.FBX", DeviceD3D::GetInstance().GetDevice()))
+    {
+        LOG(INFO) << "Load box.FBX Succ, vertices :" << m_Sprite3D.GetAllMeshes()[0]->Vertices.size() << ", indices :" << m_Sprite3D.GetAllMeshes()[0]->Indices.size() << "。\n";
+    }
+    else
+    {
+        LOG(ERROR) << "Load box.FBX Failed\n";
+
+    }
+
+
+    return true;
+}
+
+
+
 HRESULT Application::InitWindow(HINSTANCE hInstance, int nCmdShow)
 {
 #ifdef _DEBUG
@@ -89,45 +151,6 @@ HRESULT Application::InitImgUI(HWND hWnd, ID3D11Device* pDeivce, ID3D11DeviceCon
 	return S_OK;
 }
 
-bool Application::Init()
-{
-    HINSTANCE hInstance = GetModuleHandle(nullptr);
-
-    if (FAILED(this->InitWindow(hInstance, SW_SHOW)))
-    {
-        LOG(ERROR) << "InitWindow Failed :" << GetLastError();
-        return false;
-    }
-
-    if (FAILED(DeviceD3D::GetInstance().InitDevice(m_hWnd, hInstance)))
-    {
-        LOG(ERROR) << "InitDevice Failed :" << GetLastError();
-        return false;
-    }
-
-    if (FAILED(InitImgUI(m_hWnd, DeviceD3D::GetInstance().GetDevice(), DeviceD3D::GetInstance().GetDeviceContext())))
-    {
-        LOG(ERROR) << "InitImgUI Failed :" << GetLastError();
-        return false;
-    }
-
-
-    // 测试加载模型
-
-    if (m_Sprite3D.InitWithFile("assets/box.FBX", DeviceD3D::GetInstance().GetDevice()))
-    {
-        LOG(INFO) << "Load box.FBX Succ, vertices :" << m_Sprite3D.GetAllMeshes()[0]->Vertices.size() << ", indices :" << m_Sprite3D.GetAllMeshes()[0]->Indices.size() << "。\n";
-    }
-    else
-    {
-        LOG(ERROR) << "Load box.FBX Failed\n";
-
-    }
-
-
-    return true;
-}
-
 int Application::Run()
 {
     MSG msg = { nullptr };
@@ -146,26 +169,6 @@ int Application::Run()
     return static_cast<int>(msg.wParam);
 }
 
-void Application::Render()
-{
-    ImGui_ImplDX11_NewFrame();
-    ImGui_ImplWin32_NewFrame();
-    ImGui::NewFrame();
-
-    ImGui::Begin("FBXViewer");
-    ImGui::Text("Test");
-    ImGui::End();
-    ImGui::Render();
-
-    DeviceD3D::GetInstance().Begin(0.0f, 0.125f, 0.3f, 1.0f);
-
-    m_Sprite3D.Draw(DeviceD3D::GetInstance().GetDeviceContext());
-
-    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-
-    DeviceD3D::GetInstance().Present();
-
-}
 
 HWND Application::GetHWND() const
 {
@@ -174,6 +177,7 @@ HWND Application::GetHWND() const
 
 Application::Application(): m_hWnd(nullptr), m_hInstnace(nullptr)
 {
+
 }
 
 
