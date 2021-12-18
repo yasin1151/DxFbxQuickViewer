@@ -30,6 +30,9 @@
     <Filter Include="源文件\classes\renderer">
       <UniqueIdentifier>{8859d7e5-e206-473c-9d85-c1ad4195820e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\classes\input">
+      <UniqueIdentifier>{ca7f1fb4-2adf-49b2-ad99-0a4049f21ab3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -79,6 +82,18 @@
     </ClCompile>
     <ClCompile Include="classes\Application.cpp">
       <Filter>源文件\classes</Filter>
+    </ClCompile>
+    <ClCompile Include="classes\renderer\Camera.cpp">
+      <Filter>源文件\classes\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="classes\input\KeyboardInputEvent.cpp">
+      <Filter>源文件\classes\input</Filter>
+    </ClCompile>
+    <ClCompile Include="classes\input\KeyboardInput.cpp">
+      <Filter>源文件\classes\input</Filter>
+    </ClCompile>
+    <ClCompile Include="classes\input\MouseInput.cpp">
+      <Filter>源文件\classes\input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -132,6 +147,18 @@
     </ClInclude>
     <ClInclude Include="classes\Application.h">
       <Filter>源文件\classes</Filter>
+    </ClInclude>
+    <ClInclude Include="classes\renderer\Camera.h">
+      <Filter>源文件\classes\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="classes\input\KeyboardInputEvent.h">
+      <Filter>源文件\classes\input</Filter>
+    </ClInclude>
+    <ClInclude Include="classes\input\KeyboardInput.h">
+      <Filter>源文件\classes\input</Filter>
+    </ClInclude>
+    <ClInclude Include="classes\input\MouseInput.h">
+      <Filter>源文件\classes\input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

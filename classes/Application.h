@@ -6,6 +6,7 @@
 #include "imgui/imgui_impl_dx11.h"
 #include "imgui/imgui_impl_win32.h"
 #include "modelload/Sprite3D.h"
+#include "input/KeyboardInput.h"
 
 
 
@@ -36,7 +37,7 @@ private:
 
 	HWND m_hWnd;
 	HINSTANCE m_hInstnace;
-
+	KeyboardInput m_KeyboardInputMgr;
 
 	Sprite3D m_Sprite3D;
 };

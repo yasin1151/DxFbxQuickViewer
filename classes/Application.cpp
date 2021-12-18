@@ -3,8 +3,6 @@
 #include "log/easylogging++.h"
 #include "renderer/DeviceD3D.h"
 
-extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
 const wchar_t* TITLE_NAME = L"FBXQuickViewer";
 constexpr unsigned int WINDOW_WIDTH = 800;
 constexpr unsigned int WINDOW_HEIGHT = 600;
@@ -121,6 +119,18 @@ LRESULT Application::AppWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
     {
     case WM_DESTROY:
         PostQuitMessage(0);
+        break;
+    case WM_KEYDOWN:
+    case WM_SYSKEYDOWN:
+	    {
+			m_KeyboardInputMgr.OnKeyPressed(static_cast<unsigned char>(wParam));
+	    }
+        break;
+    case WM_KEYUP:
+    case WM_SYSKEYUP:
+	    {
+			m_KeyboardInputMgr.OnKeyReleased(static_cast<unsigned char>(wParam));
+	    }
         break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);

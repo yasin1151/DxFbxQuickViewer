@@ -153,12 +153,16 @@
     <ClCompile Include="classes\imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="classes\imgui\imgui_tables.cpp" />
     <ClCompile Include="classes\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="classes\input\KeyboardInputEvent.cpp" />
+    <ClCompile Include="classes\input\KeyboardInput.cpp" />
+    <ClCompile Include="classes\input\MouseInput.cpp" />
     <ClCompile Include="classes\log\easylogging++.cc" />
     <ClCompile Include="classes\modelload\AssimpLoader.cpp" />
     <ClCompile Include="classes\modelload\AssimpMesh.cpp" />
     <ClCompile Include="classes\modelload\Matrix.cpp" />
     <ClCompile Include="classes\modelload\Sprite3D.cpp" />
     <ClCompile Include="classes\modelload\Vec3.cpp" />
+    <ClCompile Include="classes\renderer\Camera.cpp" />
     <ClCompile Include="classes\renderer\DeviceD3D.cpp" />
     <ClCompile Include="classes\renderer\Shader.cpp" />
     <ClCompile Include="main.cpp" />
@@ -173,12 +177,16 @@
     <ClInclude Include="classes\imgui\imstb_rectpack.h" />
     <ClInclude Include="classes\imgui\imstb_textedit.h" />
     <ClInclude Include="classes\imgui\imstb_truetype.h" />
+    <ClInclude Include="classes\input\KeyboardInputEvent.h" />
+    <ClInclude Include="classes\input\KeyboardInput.h" />
+    <ClInclude Include="classes\input\MouseInput.h" />
     <ClInclude Include="classes\log\easylogging++.h" />
     <ClInclude Include="classes\modelload\AssimpLoader.h" />
     <ClInclude Include="classes\modelload\AssimpMesh.h" />
     <ClInclude Include="classes\modelload\Matrix.h" />
     <ClInclude Include="classes\modelload\Sprite3D.h" />
     <ClInclude Include="classes\modelload\Vec3.h" />
+    <ClInclude Include="classes\renderer\Camera.h" />
     <ClInclude Include="classes\renderer\DeviceD3D.h" />
     <ClInclude Include="classes\renderer\Shader.h" />
   </ItemGroup>
