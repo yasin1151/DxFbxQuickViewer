@@ -7,7 +7,6 @@ struct VertexIn
 struct PixelIn
 {
 	float4 Position : SV_POSITION;
-	float4 WorldPosition : POSITION;
 	float4 Normal : NORMAL;
 };
 
@@ -25,8 +24,6 @@ PixelIn main(VertexIn vin)
 	vout.Position = mul(vin.Position, mModel);
 	vout.Position = mul(vout.Position, mView);
 	vout.Position = mul(vout.Position, mProj);
-
-	vout.WorldPosition = mul(vin.Position, mModel);
 
 	vout.Normal = mul(vin.Normal, mModel);
 

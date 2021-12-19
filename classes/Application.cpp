@@ -2,6 +2,7 @@
 #include "imgui/imgui.h"
 #include "log/easylogging++.h"
 #include "renderer/DeviceD3D.h"
+#include <DirectXMath.h>
 
 const wchar_t* TITLE_NAME = L"FBXQuickViewer";
 constexpr unsigned int WINDOW_WIDTH = 800;
@@ -21,7 +22,10 @@ void Application::Render()
 
     DeviceD3D::GetInstance().Begin(0.0f, 0.125f, 0.3f, 1.0f);
 
-    m_Sprite3D.Draw(DeviceD3D::GetInstance().GetDeviceContext());
+    const auto viewMat = m_Camera.GetViewMat();
+    const auto projMat = m_Camera.GetProjectionMat();
+
+    m_Sprite3D.Draw(DeviceD3D::GetInstance().GetDeviceContext(), viewMat, projMat);
 
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
@@ -51,6 +55,9 @@ bool Application::Init()
         return false;
     }
 
+    m_Camera.InitProjectionMat(WINDOW_WIDTH, WINDOW_HEIGHT, 0.1f, 1000.0f, DirectX::XM_PIDIV4);
+
+    m_Camera.SetCameraPos({ 0, 0, 0 });
 
     // ≤‚ ‘º”‘ÿƒ£–Õ
 
@@ -132,6 +139,16 @@ LRESULT Application::AppWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
 			m_KeyboardInputMgr.OnKeyReleased(static_cast<unsigned char>(wParam));
 	    }
         break;
+    case WM_CHAR:
+	    {
+    		m_KeyboardInputMgr.OnChar(static_cast<unsigned char>(wParam));
+	    }
+        break;
+    case WM_KILLFOCUS:
+	    {
+			m_KeyboardInputMgr.OnKillFocus();
+	    }
+        break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
@@ -173,10 +190,46 @@ int Application::Run()
         }
         else
         {
+            HandleInput();
             Render();
         }
     }
     return static_cast<int>(msg.wParam);
+}
+
+void Application::HandleInput()
+{
+
+    DirectX::XMFLOAT3 cameraDeltaVec = {};
+    if (m_KeyboardInputMgr.KeyIsPressed('W'))
+    {
+        cameraDeltaVec.z += 1;
+    }
+    if (m_KeyboardInputMgr.KeyIsPressed('S'))
+    {
+        cameraDeltaVec.z -= 1;
+    }
+    if (m_KeyboardInputMgr.KeyIsPressed('A'))
+    {
+        cameraDeltaVec.x -= 1;
+    }
+    if (m_KeyboardInputMgr.KeyIsPressed('D'))
+    {
+        cameraDeltaVec.x += 1;
+    }
+    if (m_KeyboardInputMgr.KeyIsPressed('R'))
+    {
+        cameraDeltaVec.y += 1;
+    }
+    if (m_KeyboardInputMgr.KeyIsPressed('F'))
+    {
+        cameraDeltaVec.y -= 1;
+    }
+
+    // const float dt = 0.016;
+    // cameraDeltaVec = { cameraDeltaVec.x * dt, cameraDeltaVec.y * dt, cameraDeltaVec.z * dt};
+
+    m_Camera.Translate(cameraDeltaVec);
 }
 
 

@@ -1,6 +1,7 @@
 #include "MouseInput.h"
 
-MouseInput::MouseInput()
-{
 
+std::pair<int, int> MouseInput::GetPos()
+{
+	return { m_PosX, m_PosY }; 
 }

@@ -4,6 +4,8 @@
 #include <wrl/client.h>
 #include <string>
 #include <unordered_map>
+#include <DirectXMath.h>
+
 #include "AssimpMesh.h"
 
 class Sprite3D
@@ -13,10 +15,15 @@ public:
 	~Sprite3D();
 
 	bool InitWithFile(const std::string& szFilePath, ID3D11Device* pDevice);
-	void Draw(ID3D11DeviceContext* pDeviceContext);
+	void Draw(ID3D11DeviceContext* pDeviceContext, DirectX::XMMATRIX viewMat, DirectX::XMMATRIX projectMat);
 
 	AssimpMesh* GetMesh(std::string& szMeshName);
 	std::vector<AssimpMesh*> GetAllMeshes() const;
+
+	Vec3 GetPos() const;
+	void SetPos(Vec3 pos);
+	void Translate(Vec3 deltaPos);
+
 
 private:
 	void Clear();
@@ -30,6 +37,8 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_VertexShader;
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_VertexBuffer;
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_IndexBuffer;
+
+	Vec3 m_Pos;
 
 	bool m_IsInit;
 };

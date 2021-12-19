@@ -4,7 +4,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <assimp/material.h>
-#include <xnamath.h>
+#include <DirectXMath.h>
 
 #include "Matrix.h"
 #include "renderer/shader.h"
@@ -50,9 +50,9 @@ PixelIn main(VertexIn vin)
 
 struct MVP_MAT
 {
-	XMMATRIX Model;
-	XMMATRIX View;
-	XMMATRIX Proj;
+	DirectX::XMMATRIX Model;
+	DirectX::XMMATRIX View;
+	DirectX::XMMATRIX Proj;
 };
 
 
@@ -134,7 +134,7 @@ bool Sprite3D::InitWithFile(const std::string& szFilePath, ID3D11Device* pDevice
 	return true;
 }
 
-void Sprite3D::Draw(ID3D11DeviceContext* pDeviceContext)
+void Sprite3D::Draw(ID3D11DeviceContext* pDeviceContext, DirectX::XMMATRIX viewMat, DirectX::XMMATRIX projectMat)
 {
 	if (!m_IsInit)
 		return;
@@ -155,15 +155,9 @@ void Sprite3D::Draw(ID3D11DeviceContext* pDeviceContext)
 			return;
 		}
 
-		auto worldMat = XMMatrixIdentity();
-		// Initialize the view matrix
-		XMVECTOR Eye = XMVectorSet(10.0f, 13.0f, 106.0f, 0.0f);
-		XMVECTOR At = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-		XMVECTOR Up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-		auto viewMat = XMMatrixLookAtLH(Eye, At, Up);
-		auto projectionMat = XMMatrixPerspectiveFovLH(XM_PIDIV4, 800 / (FLOAT)600, 0.01f, 100.0f);
+		auto worldMat = DirectX::XMMatrixIdentity();
 
-		MVP_MAT mvp = { worldMat , viewMat , projectionMat };
+		MVP_MAT mvp = { worldMat , viewMat , projectMat };
 
 		memcpy(vscb.pData, &mvp, sizeof(mvp));
 		pDeviceContext->Unmap(m_VertexBuffer.Get(), 0);
@@ -203,6 +197,21 @@ std::vector<AssimpMesh*> Sprite3D::GetAllMeshes() const
 		ret.push_back(it.second);
 	}
 	return ret;
+}
+
+Vec3 Sprite3D::GetPos() const
+{
+	return m_Pos;
+}
+
+void Sprite3D::SetPos(Vec3 pos)
+{
+	m_Pos = pos;
+}
+
+void Sprite3D::Translate(Vec3 deltaPos)
+{
+	m_Pos += deltaPos;
 }
 
 void Sprite3D::Clear()

@@ -95,6 +95,9 @@
     <ClCompile Include="classes\input\MouseInput.cpp">
       <Filter>源文件\classes\input</Filter>
     </ClCompile>
+    <ClCompile Include="classes\input\MouseInputEvent.cpp">
+      <Filter>源文件\classes\input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="classes\log\easylogging++.h">
@@ -158,6 +161,9 @@
       <Filter>源文件\classes\input</Filter>
     </ClInclude>
     <ClInclude Include="classes\input\MouseInput.h">
+      <Filter>源文件\classes\input</Filter>
+    </ClInclude>
+    <ClInclude Include="classes\input\MouseInputEvent.h">
       <Filter>源文件\classes\input</Filter>
     </ClInclude>
   </ItemGroup>

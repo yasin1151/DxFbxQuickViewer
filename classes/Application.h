@@ -7,7 +7,7 @@
 #include "imgui/imgui_impl_win32.h"
 #include "modelload/Sprite3D.h"
 #include "input/KeyboardInput.h"
-
+#include "renderer/Camera.h"
 
 
 class Application
@@ -25,6 +25,8 @@ public:
 
 	int Run();
 
+	void HandleInput();
+
 	void Render();
 
 	HWND GetHWND() const;
@@ -38,6 +40,7 @@ private:
 	HWND m_hWnd;
 	HINSTANCE m_hInstnace;
 	KeyboardInput m_KeyboardInputMgr;
+	Camera m_Camera;
 
 	Sprite3D m_Sprite3D;
 };

@@ -156,6 +156,7 @@
     <ClCompile Include="classes\input\KeyboardInputEvent.cpp" />
     <ClCompile Include="classes\input\KeyboardInput.cpp" />
     <ClCompile Include="classes\input\MouseInput.cpp" />
+    <ClCompile Include="classes\input\MouseInputEvent.cpp" />
     <ClCompile Include="classes\log\easylogging++.cc" />
     <ClCompile Include="classes\modelload\AssimpLoader.cpp" />
     <ClCompile Include="classes\modelload\AssimpMesh.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="classes\input\KeyboardInputEvent.h" />
     <ClInclude Include="classes\input\KeyboardInput.h" />
     <ClInclude Include="classes\input\MouseInput.h" />
+    <ClInclude Include="classes\input\MouseInputEvent.h" />
     <ClInclude Include="classes\log\easylogging++.h" />
     <ClInclude Include="classes\modelload\AssimpLoader.h" />
     <ClInclude Include="classes\modelload\AssimpMesh.h" />
