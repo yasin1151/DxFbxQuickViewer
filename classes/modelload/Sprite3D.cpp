@@ -156,6 +156,7 @@ void Sprite3D::Draw(ID3D11DeviceContext* pDeviceContext, DirectX::XMMATRIX viewM
 		}
 
 		auto worldMat = DirectX::XMMatrixIdentity();
+		worldMat *= DirectX::XMMatrixTranslation(m_Pos.x, m_Pos.y, m_Pos.z);
 
 		MVP_MAT mvp = { worldMat , viewMat , projectMat };
 

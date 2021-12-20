@@ -32,7 +32,7 @@ public:
 	HWND GetHWND() const;
 
 private:
-	void OpenConsole();
+	static void OpenConsole();
 
 
 private:
@@ -43,6 +43,8 @@ private:
 	Camera m_Camera;
 
 	Sprite3D m_Sprite3D;
+
+	bool m_IsEnd;
 };
 
 

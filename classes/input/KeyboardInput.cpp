@@ -27,5 +27,4 @@ void KeyboardInput::OnChar(unsigned char character)
 void KeyboardInput::OnKillFocus()
 {
 	m_KeyStates.reset();
-
 }

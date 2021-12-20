@@ -35,7 +35,7 @@ void Application::Render()
 
 bool Application::Init()
 {
-    HINSTANCE hInstance = GetModuleHandle(nullptr);
+	const HINSTANCE hInstance = GetModuleHandle(nullptr);
 
     if (FAILED(this->InitWindow(hInstance, SW_SHOW)))
     {
@@ -193,6 +193,11 @@ int Application::Run()
             HandleInput();
             Render();
         }
+
+        if (m_IsEnd)
+        {
+            break;
+        }
     }
     return static_cast<int>(msg.wParam);
 }
@@ -200,6 +205,11 @@ int Application::Run()
 void Application::HandleInput()
 {
 
+    if (m_KeyboardInputMgr.KeyIsPressed(VK_ESCAPE))
+    {
+        m_IsEnd = true;
+        return;
+    }
     DirectX::XMFLOAT3 cameraDeltaVec = {};
     if (m_KeyboardInputMgr.KeyIsPressed('W'))
     {
@@ -238,7 +248,7 @@ HWND Application::GetHWND() const
     return m_hWnd;
 }
 
-Application::Application(): m_hWnd(nullptr), m_hInstnace(nullptr)
+Application::Application(): m_hWnd(nullptr), m_hInstnace(nullptr), m_IsEnd(false)
 {
 
 }
